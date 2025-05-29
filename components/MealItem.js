@@ -1,5 +1,6 @@
-import { View, Text, Pressable, Image } from "react-native";
+import { View, Text, Pressable, Image, Button } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MealItem({
   title,
@@ -7,10 +8,18 @@ export default function MealItem({
   affordability,
   duration,
   complexity,
+  id,
 }) {
+  const navigation = useNavigation();
+  function mealDetailsHandler() {
+    navigation.navigate("MealDetails", {
+      mealId: id,
+    });
+  }
+
   return (
     <View className="bg-white m-4 rounded-lg shadow-md ">
-      <Pressable>
+      <Pressable onPress={mealDetailsHandler}>
         <View>
           <Image
             className="h-[200px] w-[100%] rounded-lg bg-white "
@@ -23,6 +32,7 @@ export default function MealItem({
           <Text className=" text-lg mx-2">{complexity.toUpperCase()}</Text>
           <Text className=" text-lg mx-2">{affordability.toUpperCase()}</Text>
         </View>
+        <Button title="View details" />
       </Pressable>
     </View>
   );
